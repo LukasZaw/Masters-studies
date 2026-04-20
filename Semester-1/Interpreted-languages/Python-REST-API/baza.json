@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "imie": "Adam",
+    "nazwisko": "Nowak",
+    "rok_uro": 2000
+  },
+  {
+    "id": 3,
+    "imie": "Andrzej",
+    "nazwisko": "Kowal",
+    "rok_uro": 2005
+  },
+  {
+    "id": 5,
+    "imie": "Kuba",
+    "nazwisko": "Nowak",
+    "rok_uro": 2001
+  }
+]
