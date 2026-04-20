@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function FizzBuzz() {
+        for (let i = 1; i <= 100; i++) {
+          if (i % 3 == 0 && i % 5 == 0) {
+            console.log("FizzBuzz");
+          }
+          if (i % 3 == 0) {
+            console.log("Fizz");
+          } else if (i % 5 == 0) {
+            console.log("Buzz");
+          } else {
+            console.log(i);
+          }
+        }
+      }
+
+      function triPascal(num) {
+        if (num === 0) return [];
+
+        let result = [];
+
+        for (let row = 0; row < num; row++) {
+          let arr = [];
+
+          for (let col = 0; col <= row; col++) {
+            if (col === 0 || col === row) {
+              arr.push(1);
+            } else {
+              arr.push(result[row - 1][col - 1] + result[row - 1][col]);
+            }
+          }
+
+          result.push(arr);
+        }
+
+        console.log(result);
+      }
+
+      function saper(board) {
+        let result = [];
+
+        for (let i = 0; i < board.length; i++) {
+          let row = [];
+
+          for (let j = 0; j < board[i].length; j++) {
+            if (board[i][j] === "*") {
+              row.push("*");
+            } else {
+              let count = 0;
+
+              for (let di = -1; di <= 1; di++) {
+                for (let dj = -1; dj <= 1; dj++) {
+                  if (di === 0 && dj === 0) continue;
+                  let ni = i + di;
+                  let nj = j + dj;
+
+                  if (
+                    ni >= 0 &&
+                    ni < board.length &&
+                    nj >= 0 &&
+                    nj < board[i].length
+                  ) {
+                    if (board[ni][nj] === "*") {
+                      count++;
+                    }
+                  }
+
+                  // sąsiad to (i + di, j + dj)
+                }
+              }
+
+              row.push(count);
+            }
+          }
+          result.push(row);
+        }
+        console.log(result);
+      }
+
+      const cache = {};
+
+      function czyPierwsza(n) {
+        if (cache[n] !== undefined) {
+          console.log("Z cache:", n);
+          return cache[n];
+        }
+
+        if (n < 2) {
+          cache[n] = false;
+          return false;
+        }
+
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+          if (n % i === 0) {
+            cache[n] = false;
+            return false;
+          }
+        }
+
+        cache[n] = true;
+        return true;
+      }
+
+      function wartoscReki(karty) {
+        let suma = 0;
+        let asy = 0;
+
+        for (let karta of karty) {
+          if (karta === "A") {
+            suma += 11;
+            asy++;
+          } else if (karta === "W" || karta === "D" || karta === "K") {
+            suma += 10;
+          } else {
+            suma += karta;
+          }
+        }
+
+        while (suma > 21 && asy > 0) {
+          suma -= 10;
+          asy--;
+        }
+
+        if (suma > 21) {
+          return "FURA";
+        }
+
+        return suma;
+      }
+
+      // --- FUNCTIONS ---
+      // zad 1
+      // FizzBuzz();
+
+      // zad 2
+      //  triPascal(7);
+
+      // zad 3
+      let tablica = [
+        ["*", "*", "."],
+        [".", ".", "*"],
+        [".", "*", "."],
+      ];
+      // saper(tablica);
+
+      // zad 4
+      // console.log(czyPierwsza(6));
+      // console.log(czyPierwsza(97));
+
+      // // zad 5
+      // console.log(czyPierwsza(97));
+
+      // zad 6
+      // console.log(wartoscReki(['A', 10]));        // 21
+      // console.log(wartoscReki(['A', 'A', 10]));   // 12
+      // console.log(wartoscReki([10, 10, 10]));     // "FURA"
+      // console.log(wartoscReki(['A', 'K']));       // 21
+      // console.log(wartoscReki(['A', 'A', 'A']));  // 13
+
+      // zad 7
+      const regex1 = /123/;
+      console.log(regex1.test("abc123xyz"));
+      console.log(regex1.test("abc12z3"));
+
+      // zad 8
+      const regex2 = /^123/;
+      console.log(regex2.test("abc123xyz"));
+      console.log(regex2.test("123z3asd"));
+
+      // zad 9
+      const regex3 = /123$/;
+      console.log(regex3.test("abc123xyz"));
+      console.log(regex3.test("12z3asd123"));
+
+      // zad 10
+      const regex4 = /[+-]?(?:\d+\.\d+|\d+|\.\d+)/;
+      console.log(regex4.test("Wartości: 12.5, -3.14 i 7"));
+      console.log(regex4.test("Brak liczby rzeczywistej"));
+
+      // zad 11
+      const regex5 = /\b[A-Za-z_][A-Za-z0-9_]*\b/;
+      console.log(regex5.test("zmienna_1"));
+      console.log(regex5.test("1zmienna"));
+
+      // zad 12
+      const regex6 = /\b(for|if|while)\b/;
+      console.log(regex6.test("for (let i = 0; i < 10; i++) {}"));
+      console.log(regex6.test("funkcja"));
+
+      // zad 13
+      const regex7 = /\b\d{2}\\\d{2}\\\d{4}\b/;
+      console.log(regex7.test("Data: 28\\12\\2014"));
+      console.log(regex7.test("Data: 28/12/2014"));
+
+      // zad 14
+      const amerykanskaData = "12/28/2014";
+      const regex8 = /(\d{2})\/(\d{2})\/(\d{4})/;
+      console.log(amerykanskaData.replace(regex8, "$2/$1/$3"));
+    </script>
+  </head>
+  <body></body>
+</html>
